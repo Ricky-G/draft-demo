@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "draft-demo-api.name" -}}
+{{- define "draft-demo.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "draft-demo-api.fullname" -}}
+{{- define "draft-demo.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "draft-demo-api.chart" -}}
+{{- define "draft-demo.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "draft-demo-api.labels" -}}
-helm.sh/chart: {{ include "draft-demo-api.chart" . }}
-{{ include "draft-demo-api.selectorLabels" . }}
+{{- define "draft-demo.labels" -}}
+helm.sh/chart: {{ include "draft-demo.chart" . }}
+{{ include "draft-demo.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,7 +45,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "draft-demo-api.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "draft-demo-api.name" . }}
+{{- define "draft-demo.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "draft-demo.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

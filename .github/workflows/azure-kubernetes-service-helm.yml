@@ -3,7 +3,7 @@ name: Build and deploy an app to AKS with Helm
     push:
         branches:
             - main
-    workflow_dispatch: null 
+    workflow_dispatch: null
 env:
     AZURE_CONTAINER_REGISTRY: aksdevtestregistry
     CHART_OVERRIDE_PATH: ./charts/production.yaml

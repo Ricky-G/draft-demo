@@ -1,13 +1,13 @@
-# Default values for draft-demo-api.
+# Default values for draft-demo.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
-containerPort: 8080
+containerPort: 80
 
 imageKey:
-  repository: draft-demo-api
+  repository: draft-demo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
