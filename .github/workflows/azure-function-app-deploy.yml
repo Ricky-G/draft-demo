@@ -2,7 +2,7 @@ name: To Function App
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 env:
   DOTNET_VERSION: '6'
