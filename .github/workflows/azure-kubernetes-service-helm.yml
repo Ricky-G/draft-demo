@@ -1,8 +1,8 @@
-name: Build and deploy an app to AKS with Helm
+name: To AKS With Helm
 "on":
     push:
         branches:
-            - main
+            - draft
     workflow_dispatch: null
 env:
     AZURE_CONTAINER_REGISTRY: aksdevtestregistry
