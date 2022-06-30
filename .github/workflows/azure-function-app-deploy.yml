@@ -9,7 +9,7 @@ env:
   DOTNET_VERSION: '6.0.x'
   AZURE_RESOURCE_GROUP_NAME: 'rg-aks'
   AZURE_FUNCTIONAPP_NAME: 'func-app-iprest-demo'
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '${{ github.workspace }}/aspnetapp'
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '${{ github.workspace }}/functionapp'
   BUILD_OUTPUT_PATH: '${{ github.workspace }}/build-artifacts'
   BUILD_PACKAGE_NAME: 'az-func.zip'
 
