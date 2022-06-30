@@ -6,7 +6,7 @@ on:
   workflow_dispatch: null
 
 env:
-  DOTNET_VERSION: '6'
+  DOTNET_VERSION: '6.0.x'
   AZURE_RESOURCE_GROUP_NAME: 'rg-aks'
   AZURE_FUNCTIONAPP_NAME: 'func-app-iprest-demo'
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '${{ github.workspace }}/aspnetapp'
