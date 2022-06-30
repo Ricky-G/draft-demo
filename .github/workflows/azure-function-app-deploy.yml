@@ -3,6 +3,7 @@ name: To Function App
 on:
   push:
     branches: [ main ]
+  workflow_dispatch: null
 
 env:
   DOTNET_VERSION: '6'
@@ -18,6 +19,9 @@ defaults:
 
 jobs:
     deploy-az-infrastructure:
+      permissions:
+            contents: read
+            id-token: write
       runs-on: ubuntu-latest
       steps:
           - uses: actions/checkout@v3
@@ -44,6 +48,9 @@ jobs:
     ############################################################################
 
     build-az-function:
+      permissions:
+            contents: read
+            id-token: write
       needs: [deploy-az-infrastructure]
       runs-on: ubuntu-latest
       steps:
@@ -78,6 +85,10 @@ jobs:
     ############################################################################
 
     deploy-az-function:
+      permissions:
+            contents: read
+            id-token: write
+
       needs: [build-az-function]
       runs-on: ubuntu-latest
       steps:
