@@ -19,7 +19,7 @@ namespace Company.Function
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            return new OkObjectResult("Hello From Function App, wooohoooo, yaaaaaay");
+            return new OkObjectResult("Hello from function app, I am the best function app in the world. wooohoooo, yaaaaaay.  Nah, I am just kidding, I am just a normal function app. I wish I was the best function app in the world though.");
         }
     }
 }
