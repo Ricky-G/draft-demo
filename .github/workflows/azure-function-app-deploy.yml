@@ -79,6 +79,10 @@ jobs:
       needs: [build-az-function]
       runs-on: ubuntu-latest
       steps:
+
+       - name: Public IP
+         id: ip
+         uses: haythem/public-ip@v1.2
       
        # Makes source code accessible via $github.workspace
        - name: 'Checking out source code ...'
@@ -94,7 +98,13 @@ jobs:
            subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
            tenant-id: ${{ secrets.AZURE_TENANT_ID }}
            enable-AzPSSession: true
-       
+
+       - name: 'Allow Github Runner IpAddress'
+         uses: azure/CLI@v1
+         with:
+           inlineScript: |
+               az functionapp config access-restriction add -g $env:AZURE_RESOURCE_GROUP_NAME -n $env:AZURE_FUNCTIONAPP_NAME --rule-name github_runner --action Allow --ip-address ${{ steps.ip.outputs.ipv4 }} --priority 100 --scm-site true
+             
        - name: 'Fetching Azure Functions Publishing Profile'
          id: fncapp
          uses: azure/powershell@v1
@@ -126,3 +136,9 @@ jobs:
            app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
            package: ${{ env.BUILD_OUTPUT_PATH }}/${{ env.BUILD_PACKAGE_NAME }}
            publish-profile: ${{ steps.fncapp.outputs.pubprofile }}
+
+       - name: 'Remove Github Runner IpAddress'
+         uses: azure/CLI@v1
+         with:
+           inlineScript: |
+               az functionapp config access-restriction remove -g $env:AZURE_RESOURCE_GROUP_NAME -n $env:AZURE_FUNCTIONAPP_NAME --rule-name github_runner --scm-site true
