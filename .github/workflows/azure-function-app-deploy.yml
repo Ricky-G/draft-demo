@@ -104,7 +104,7 @@ jobs:
          with:
            azcliversion: 2.37.0
            inlineScript: |
-               az functionapp config access-restriction add -g $env:AZURE_RESOURCE_GROUP_NAME -n $env:AZURE_FUNCTIONAPP_NAME --rule-name github_runner --action Allow --ip-address ${{ steps.ip.outputs.ipv4 }} --priority 100 --scm-site true
+               az functionapp config access-restriction add -g ${{ secrets.RESOURCE_GROUP_NAME }} -n func-app-iprest-demo --rule-name github_runner --action Allow --ip-address ${{ steps.ip.outputs.ipv4 }} --priority 100 --scm-site true
              
        - name: 'Fetching Azure Functions Publishing Profile'
          id: fncapp
@@ -112,7 +112,7 @@ jobs:
          with:
            inlineScript: |
                $profile = ""
-               $profile = Get-AzWebAppPublishingProfile -ResourceGroupName $env:AZURE_RESOURCE_GROUP_NAME -Name $env:AZURE_FUNCTIONAPP_NAME
+               $profile = Get-AzWebAppPublishingProfile -ResourceGroupName $env:AZURE_RESOURCE_GROUP_NAME -Name func-app-iprest-demo
                $profile = $profile.Replace("`r", "").Replace("`n", "")
                Write-Output "::set-output name=pubprofile::$profile"
                Remove-Variable profile
@@ -143,5 +143,5 @@ jobs:
          with:
            azcliversion: 2.37.0
            inlineScript: |
-               az functionapp config access-restriction remove -g $env:AZURE_RESOURCE_GROUP_NAME -n $env:AZURE_FUNCTIONAPP_NAME --rule-name github_runner --scm-site true
-               az webapp config access-restriction set -g $env:AZURE_RESOURCE_GROUP_NAME -n $env:AZURE_FUNCTIONAPP_NAME --use-same-restrictions-for-scm-site true
+               az functionapp config access-restriction remove -g ${{ secrets.RESOURCE_GROUP_NAME }} -n func-app-iprest-demo --rule-name github_runner --scm-site true
+               az webapp config access-restriction set -g ${{ secrets.RESOURCE_GROUP_NAME }} -n func-app-iprest-demo --use-same-restrictions-for-scm-site true
